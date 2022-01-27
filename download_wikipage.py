@@ -2,14 +2,13 @@ import urllib.parse
 import requests
 from lxml import etree
 import shutil
+import wikipedia
 
 session = requests.Session()
 
 def download(name):
-    url = f'https://en.wikipedia.org/wiki/{urllib.parse.quote(name)}'
-    res = session.get(url)
-    if res.status_code == 200:
-        return res.content
+    page_object = wikipedia.page(name)
+    return page_object
 
 def download_original_image(link):
     url = f'https://wikipedia.org{link}'

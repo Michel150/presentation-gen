@@ -13,30 +13,32 @@ def generate_title_page(title, html_tree):
 
     return write_slideshow.title_slide(title, pic_name)
 
-def generate_contents(html_tree):
-    content_element = html_tree.xpath("//div[@id='toc']")
-    if(len(content_element) != 1):
-        print(f"Didnot find exactly on toc, but {len(content_element)}")
-        return ""
-    contents = content_element[0].xpath("./ul/li/a/span[@class='toctext']/text()")
-    number_of_elements = contents.index("See also")
-
-    points_text = "<ul>"
-    for point in contents[:number_of_elements]:
-        points_text += f"<li>{point}</li>"
-    points_text += "</ul>"
-    return write_slideshow.text_slide("Contents", points_text)
-
 if len(sys.argv) != 2:
     print("requires wikipedia title as first argument")
     sys.exit(1)
 
 title = sys.argv[1]
 
-wiki_page = etree.HTML(download_wikipage.download(title))
-slides = []
+wiki_page = download_wikipage.download(title)
 
-slides.append(generate_title_page(title=title, html_tree=wiki_page))
-slides.append(generate_contents(html_tree=wiki_page))
+# slides.append(generate_title_page(title=title, html_tree=html_tree))
 
-write_slideshow.write_slides(slides)
+# pip install wikipedia_sections
+sections_full = wiki_page.sections
+sections = sections_full[:sections_full.index("See also")]
+print(sections)
+
+sections_c = [wiki_page.section(s) for s in sections]
+print(sections_c)
+
+# toc = generate_contents(html_tree)
+# points_text = "<ul>"
+# for point in toc:
+#     points_text += f"<li>{point}</li>"
+# points_text += "</ul>"
+# slides.append(write_slideshow.text_slide("Contents", points_text))
+
+# paragraphs = get_paragraph_texts(html_tree, len(toc))
+# print(paragraphs[0])
+
+# write_slideshow.write_slides(slides)

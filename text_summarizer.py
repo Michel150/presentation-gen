@@ -54,13 +54,3 @@ def summarize(text, num_sntnc = 3, language="english"):
     for i in lowest_sim:
         summary.append(sentences_raw[i])
     return summary
-    
-
-with open("./tmp.txt", "r") as f:
-    text = f.read()
-    # text = ('Obama speaks to the media in Illinois. '
-    #         'The president greets the press in Chicago. '
-    #         'Oranges are my favorite fruit. ')
-    # print(f"pre: \n{text}\n")
-    summary = summarize(text)
-    print(f"after: \n{summary}\n")
