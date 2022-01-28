@@ -30,7 +30,6 @@ def find_best_idx(sntnc_sim, num_sntnc):
     min = ratings.argmin()
     return list_idxs[min]
 
-
 def summarize(text, num_sntnc = 3, language="english"):
     stop_words = set(nltk.corpus.stopwords.words(language))
     sentences_raw = nltk.tokenize.sent_tokenize(text)
@@ -38,7 +37,6 @@ def summarize(text, num_sntnc = 3, language="english"):
     N = len(sentences)
     if num_sntnc > N:
         num_sntnc = N / 2
-    print(sentences)
 
     sntnc_tfidfs, termsim_matrix = train(sentences)
 

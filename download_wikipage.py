@@ -1,4 +1,3 @@
-import urllib.parse
 import requests
 from lxml import etree
 import shutil
@@ -6,9 +5,12 @@ import wikipedia
 
 session = requests.Session()
 
-def download(name):
-    page_object = wikipedia.page(name)
-    return page_object
+def download(name, language = "en"):
+    wikipedia.set_lang(language)
+    print(f"looking up page for '{name}'")
+    query_r = wikipedia.suggest(name)
+    print(f"suggested as '{query_r}'")
+    return wikipedia.page(title=query_r)
 
 def download_original_image(link):
     url = f'https://wikipedia.org{link}'

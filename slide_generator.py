@@ -1,7 +1,7 @@
 import write_slideshow
 import download_wikipage
+import text_summarizer
 import sys
-from lxml import etree
 
 def generate_title_page(title, html_tree):
     img_link = html_tree.xpath("(//a[@class='image'])[2]")
@@ -13,32 +13,35 @@ def generate_title_page(title, html_tree):
 
     return write_slideshow.title_slide(title, pic_name)
 
+def load_sections(wiki_page, min_char_s = 500):
+
+    # pip install wikipedia_sections
+    sections_full = wiki_page.sections
+    sections = sections_full[:sections_full.index("See also")]
+    sections_c = [wiki_page.section(s) for s in sections]
+
+    sections_f = []
+    sections_c_f = []
+    for i, s_c in enumerate(sections_c):
+        print(len(s_c))
+        if(len(s_c) >= min_char_s):
+            sections_f.append(sections[i])
+            sections_c_f.append(s_c)
+    return sections_f, sections_c_f
+
+
 if len(sys.argv) != 2:
     print("requires wikipedia title as first argument")
     sys.exit(1)
 
 title = sys.argv[1]
 
+slides = [write_slideshow.title_slide(title=title)]
+
 wiki_page = download_wikipage.download(title)
+titles, sections = load_sections(wiki_page=wiki_page)
+for i, t in enumerate(titles):
+    sec_sum = text_summarizer.summarize(sections[i], num_sntnc=5)
+    slides.append(write_slideshow.text_slide(t, sec_sum))
 
-# slides.append(generate_title_page(title=title, html_tree=html_tree))
-
-# pip install wikipedia_sections
-sections_full = wiki_page.sections
-sections = sections_full[:sections_full.index("See also")]
-print(sections)
-
-sections_c = [wiki_page.section(s) for s in sections]
-print(sections_c)
-
-# toc = generate_contents(html_tree)
-# points_text = "<ul>"
-# for point in toc:
-#     points_text += f"<li>{point}</li>"
-# points_text += "</ul>"
-# slides.append(write_slideshow.text_slide("Contents", points_text))
-
-# paragraphs = get_paragraph_texts(html_tree, len(toc))
-# print(paragraphs[0])
-
-# write_slideshow.write_slides(slides)
+write_slideshow.write_slides(slides)

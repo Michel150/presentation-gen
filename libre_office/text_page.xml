@@ -1,0 +1,21 @@
+<draw:page draw:name="page{}" draw:style-name="dp4" draw:master-page-name="Alizarin" presentation:presentation-page-layout-name="AL2T1" presentation:use-date-time-name="dtd1">
+   <office:forms form:automatic-focus="false" form:apply-design-mode="false" />
+   <draw:frame presentation:style-name="pr18" draw:text-style-name="P10" draw:layer="layout" svg:width="26cm" svg:height="2.083cm" svg:x="1cm" svg:y="0.833cm" presentation:class="title">
+      <draw:text-box>
+         <text:p text:style-name="P10">{}</text:p>
+      </draw:text-box>
+   </draw:frame>
+   <draw:frame presentation:style-name="pr19" draw:text-style-name="P10" draw:layer="layout" svg:width="25.5cm" svg:height="10.833cm" svg:x="1cm" svg:y="4.583cm" presentation:class="outline" presentation:user-transformed="true">
+      <draw:text-box>
+         <text:list text:style-name="L4">
+            {}
+         </text:list>
+      </draw:text-box>
+   </draw:frame>
+   <presentation:notes draw:style-name="dp2">
+      <draw:page-thumbnail draw:style-name="gr4" draw:layer="layout" svg:width="14.848cm" svg:height="11.136cm" svg:x="3.075cm" svg:y="2.257cm" draw:page-number="2" presentation:class="page" />
+      <draw:frame presentation:style-name="pr20" draw:text-style-name="P19" draw:layer="layout" svg:width="16.799cm" svg:height="13.364cm" svg:x="2.1cm" svg:y="14.107cm" presentation:class="notes" presentation:placeholder="true">
+         <draw:text-box />
+      </draw:frame>
+   </presentation:notes>
+</draw:page>
